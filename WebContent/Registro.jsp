@@ -36,23 +36,23 @@
 	<div class="card">
 	  <div class="card-body col-sm-6">
 	    Registro
-			<form>
+			<form name="formulario" method="post" action="RegistroS">
 			<div class="form-group">
 			    <label for="exampleInputEmail1">Nombre</label>
-			    <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre" maxlength="15">
+			    <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre" maxlength="15" required>
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Apellido</label>
-			    <input type="text" class="form-control" id="apellido_usuario" placeholder="Apellido" maxlength="15">
+			    <input type="text" class="form-control" id="apellido_usuario" placeholder="Apellido" maxlength="15" required>
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Correo electrónico</label>
-			    <input type="email" class="form-control" id="mail_usuario" aria-describedby="emailHelp" placeholder="Email" maxlength="30">
+			    <input type="email" class="form-control" id="mail_usuario" aria-describedby="emailHelp" placeholder="Email" maxlength="30" required>
 			    
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="pass_usuario" placeholder="Password" maxlength="30">
+			    <input type="password" class="form-control" id="pass_usuario" placeholder="Password" maxlength="30" required>
 			  </div>
 			  <div class="form-group form-check">
 			    <input type="checkbox" class="form-check-input" id="exampleCheck1">
