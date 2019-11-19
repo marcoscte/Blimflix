@@ -1,74 +1,122 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="utf-8">
-    <title>Inicio Blimflix</title>
-  </head>
-  <body>
-  	<!-- Inicia navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-		<img src="imgs/rsz_logo.png"  alt="..." >
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html">Inicio<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Iniciar Sesion</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Registro</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form>
-      </div>
-    </nav>
-    <!-- termina navbar -->
-    <br>
-    <br>
-    <!-- Inicia bloque de codigo -->
-    
-		<div class="card-deck col-sm-10">
-		  <div class="card " >
-		    <img src="imgs/images.jpeg" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">Card title</h5>
-		      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-		      
-		    </div>
-		  </div>
-		  <div class="card">
-		    <img src="imgs/pug.jpg" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">Card title</h5>
-		      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-		      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-		    </div>
-		  </div>
-		  <div class="card">
-		    <img src="imgs/naruto.jpg" class="card-img-top" alt="...">
-		    <div class="card-body">
-		      <h5 class="card-title">Card title</h5>
-		      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-		      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-		    </div>
-		  </div>
-		</div>
-    <!-- Terminaa bloque de codigo -->
-    <br>
-    <br>
-    <div class="alert alert-secondary" role="alert">
-    Blimflix - México 2019 - ESCOM IPN
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blog</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/estilos.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ultra&display=swap" rel="stylesheet"> 
+    </head>    
+    <body background="img/fondoindex.jpg">
+
+        <nav class="navbar navbar-default navbar-static-top">
+            <!-- container-fluid ocupa todo el largo sólito deja margenes -->
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Este botón despliega la barra de navación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand fontnav" href="#">BlimFix</a>
+                </div>                
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a class="fontnav" href="http://localhost/Proyecto1/topSeries.html">Top Series</a></li>
+                       
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="Login.jsp">Login</a></li>
+                        <li><a href="Registro.jsp">Registrarse</a></li>
+                    </ul>
+                </div>    
+            </div>             
+        </nav>
+        <div class="container containerCol"> 
+            <div class="row">
+                <div class="col-md-3">
+                    
+                    <img src="img/1s.jpg " alt="img 1">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/2s.jpg " alt="img 2">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/3s.jpg " alt="img3">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/4s.jpg " alt="img4">
+                </div>
+                  </div>
+            <div class="row">
+                <div class="col-md-3">
+                    
+                    <img src="img/5s.jpg " alt="img 5">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/6s.jpg " alt="img 6">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/7s.jpg " alt="img7">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/8s.jpg " alt="img8">
+                </div>
+                  </div>
+            <div class="row">
+                <div class="col-md-3">
+                    
+                    <img src="img/9s.jpg " alt="img 9">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/10s.jpg " alt="img 10">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/11s.jpg " alt="img 11">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/12s.jpg " alt="img 12">
+                </div>
+                  </div>
+            <div class="row">
+                <div class="col-md-3">
+                    
+                    <img src="img/13s.jpg " alt="img 13">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/14s.jpg " alt="img 14">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/the.jpg " alt="img the">
+                </div>
+                <div class="col-md-3">
+                    
+                    <img src="img/16s.jpg " alt="img 16">
+                </div>
+                  </div>
+            
+         </div>
+
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+    </body>
+
 </html>
