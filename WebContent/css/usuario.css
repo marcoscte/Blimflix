@@ -1,0 +1,92 @@
+@import "lesshat";
+
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+.fontnav{
+   font-family: 'Ultra', serif;
+}
+.colorDiv{
+    
+    background-color: #cccccc;
+       color: white;
+    font-size: 40px;
+}
+.colorBusquedatext{
+    background: #ccc;
+       color: white;
+    font-size: 40px;
+    
+}
+.contenedor{
+    
+padding-bottom: 10px;
+}
+
+/* TRATE DE DARLE ESTILO PARA QUE CUANDO SE HICIESE HOOVER SE PUDIERA ACERCAR LA IMAGEN (ZOOM) Y VERSE MEJOR AL SELECCIONARLA)
+.i0mg-contenedor img {
+-webkit-transition:all .9s ease; 
+-moz-transition:all .9s ease;
+-o-transition:all .9s ease; 
+-ms-transition:all .9s ease; 
+width:100%;
+}
+.img-contenedor:hover img {
+-webkit-transform:scale(1.25);
+-moz-transform:scale(1.25);
+-ms-transform:scale(1.25);
+-o-transform:scale(1.25);
+transform:scale(1.25);
+}
+.img-contenedor {
+width:300px;
+height:180px;
+overflow:hidden;
+}
+
+*/
