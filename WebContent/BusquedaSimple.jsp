@@ -5,6 +5,9 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +19,12 @@
 		HttpSession sessionOk = request.getSession(true);
 		String mail = (String) sessionOk.getAttribute("mail");
 		String busqueda = (String) sessionOk.getAttribute("busqueda");
+		String nombre = (String)  sessionOk.getAttribute("nombre");
 		
-// 		if(nombre.equals(null)){
-// 			response.sendRedirect("index.html");
-// 		}
+ 		if(mail.equals(null) || mail == ""){
+ 			response.sendRedirect("index.html");
+ 		}
+ 		
 		String URL = "jdbc:postgresql://localhost:5432/proyectoBD";
 		String password = "root123";
 		String username = "root";
@@ -38,10 +43,99 @@
 		
 		%>
 
-<meta charset="UTF-8">
-<title>Resultado</title>
-</head>
-<body>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Blog</title>
+		
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--<link href="css/estilos.css" rel="stylesheet">-->
+		<!-- <link rel="stylesheet" href="estilosLogin.css">-->
+		<link  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+		<link  href="css/usuario.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Prompt:300,400,500&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Ultra&display=swap" rel="stylesheet"> 
+		</head>
+		<body background="bg.jpg">
 
+	        <nav class="navbar navbar-default navbar-static-top">
+	
+	            <div class="container">
+	                <div class="navbar-header">
+	                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	                        <span class="sr-only">Este botón despliega la barra de navación</span>
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                    </button>
+	                    <a class="navbar-brand" href="IndexUsuario.jsp"><font color="#f04a25" size="30px">BlimFix</font></a>
+	                </div>                
+	                <div id="navbar" class="navbar-collapse collapse ">
+	                    <ul class="nav navbar-nav">
+	                        <li><a class="fontnav" href="http://localhost/Proyecto1/topSeries.html"><font color="#f04a25">Top Series</font></a></li>
+	                        <li><a class="fontnav" href="http://localhost/Proyecto1/busquedaAvanzada.html"><font color="#f04a25">Busqueda avanzada</font></a></li>
+	                    </ul>
+	
+	                    <ul class="nav navbar-nav navbar-right">
+	                        <li><a class="fontnav "><font color="#f04a25"><%=nombre%></font></a></li>
+	                    </ul>
+	                </div>    
+	            </div>             
+	        </nav>
+	        <div class="container contenedor">
+	
+	            <font color="#fff" size=" 50px"> Buscar Serie </font>
+	            <form name="formulario_busqueda" action="BusquedaSimpleS" method="post">
+	            <input type="hidden" name="mail" value=<%=mail%>>
+	            <input type="hidden" name="nombre" value=<%=nombre%>>
+		            <input type="text" id="busquedaPelicula" name="busqueda" class="form-control">
+		            <button class="btn " id="botonBuscar" type="submit">Buscar</button>
+		            <!-- Al hacer clic sobre el boton buscar tenía planeado que directamente te llevará si encuentra lo que hay a la pagina de seriedatos
+		                y sino pues mande un mensaje para que así lo hagas bro -->
+	            </form>
+	        </div>
+	        <div class="container contenedor">
+			<font color="#fff" size="25px">Series</font>
+			</div>
+<%
+			busqueda = busqueda.toUpperCase();
+	        String querySeries = "SELECT * FROM SERIE WHERE TITULO_SERIE = '"+busqueda+"'";
+	        String querySeries1 = "SELECT * FROM SERIE WHERE TITULO_SERIE LIKE '%"+busqueda+"'";	       
+	        String querySeries2 = "SELECT * FROM SERIE WHERE TITULO_SERIE LIKE '"+busqueda+"%'";
+	        String querySeries3 = "SELECT * FROM SERIE WHERE TITULO_SERIE LIKE '%"+busqueda+"%'";
+
+	        String titulo ="";
+	        String portada="";
+	        String desc="";
+	        statement = connection.createStatement();
+	        
+	        List <ResultSet> resultSets= new ArrayList<ResultSet>();
+	       	resultSets.add(resultSet = statement.executeQuery(querySeries));
+	       	resultSets.add(resultSet = statement.executeQuery(querySeries1));
+	       	resultSets.add(resultSet = statement.executeQuery(querySeries2));
+	       	resultSets.add(resultSet = statement.executeQuery(querySeries3));
+			for(ResultSet resulttSet : resultSets){
+	        
+	        while(resultSet.next()){
+	        	titulo = resultSet.getString("TITULO_SERIE");
+	        	portada = resultSet.getString("PORTADA_SERIE");
+	        	desc= resultSet.getString("SINOPSIS_SERIE");
+	        	%>
+	        	
+	        	<div class ="col-md-3">
+	        		<div class="card" style="width: 18rem;">
+			  			<img src=<%=portada%> class="card-img-top" height ="200" width ="250">
+			  				<div class="card-body">
+			   					 <h5 class="card-title"><%=titulo%></h5>
+			    					<p class="card-text"><%=desc%></p>
+			    					<a href="#" class="btn btn-primary">Más información</a>
+			  				</div>
+					</div>
+	       		 </div>
+		       <%  
+	        }   
+	        }%>
+	        
+	        <h3></h3>
 </body>
 </html>

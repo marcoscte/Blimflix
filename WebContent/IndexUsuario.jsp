@@ -17,7 +17,7 @@
 		String nombre = (String) sessionOk.getAttribute("nombre");
 		
 		
-		if(nombre.equals(null)){
+		if(mail.equals(null)){
 			response.sendRedirect("index.html");
 		}
 		String URL = "jdbc:postgresql://localhost:5432/proyectoBD";
