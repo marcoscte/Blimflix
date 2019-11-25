@@ -7,21 +7,21 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@page import="mx.resources.java.Usuario"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 
-<% 
+<% 		
+		Usuario usuario = new Usuario();
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		HttpSession sessionOk = request.getSession(true);
-		String mail = (String) sessionOk.getAttribute("mail");
+		usuario = (Usuario) sessionOk.getAttribute("usuario");
 		String busqueda = (String) sessionOk.getAttribute("busqueda");
-		String nombre = (String)  sessionOk.getAttribute("nombre");
-		
- 		if(mail.equals(null) || mail == ""){
+ 		if(usuario.equals(null)){
  			response.sendRedirect("index.html");
  		}
  		
@@ -77,7 +77,7 @@
 	                    </ul>
 	
 	                    <ul class="nav navbar-nav navbar-right">
-	                        <li><a class="fontnav "><font color="#f04a25"><%=nombre%></font></a></li>
+	                        <li><a class="fontnav "><font color="#f04a25"><% usuario.getNombre();%></font></a></li>
 	                    </ul>
 	                </div>    
 	            </div>             
@@ -86,8 +86,7 @@
 	
 	            <font color="#fff" size=" 50px"> Buscar Serie </font>
 	            <form name="formulario_busqueda" action="BusquedaSimpleS" method="post">
-	            <input type="hidden" name="mail" value=<%=mail%>>
-	            <input type="hidden" name="nombre" value=<%=nombre%>>
+				<%sessionOk.setAttribute("usuario", usuario); %>
 		            <input type="text" id="busquedaPelicula" name="busqueda" class="form-control">
 		            <button class="btn " id="botonBuscar" type="submit">Buscar</button>
 		            <!-- Al hacer clic sobre el boton buscar tenía planeado que directamente te llevará si encuentra lo que hay a la pagina de seriedatos
@@ -103,6 +102,11 @@
 	        String querySeries1 = "SELECT * FROM SERIE WHERE TITULO_SERIE LIKE '%"+busqueda+"'";	       
 	        String querySeries2 = "SELECT * FROM SERIE WHERE TITULO_SERIE LIKE '"+busqueda+"%'";
 	        String querySeries3 = "SELECT * FROM SERIE WHERE TITULO_SERIE LIKE '%"+busqueda+"%'";
+	        
+	        String queryDesc = "SELECT * FROM SERIE WHERE SINOPSIS_SERIE ='"+busqueda+"'";
+	        String queryDesc1 = "SELECT * FROM SERIE WHERE SINOPSIS_SERIE LIKE '%"+busqueda+"'";
+	        String queryDesc2 = "SELECT * FROM SERIE WHERE SINOPSIS_SERIE LIKE '"+busqueda+"%'";
+	        String queryDesc3 = "SELECT * FROM SERIE WHERE SINOPSIS_SERIE LIKE '%"+busqueda+"%'";
 
 	        String titulo ="";
 	        String portada="";
@@ -114,6 +118,12 @@
 	       	resultSets.add(resultSet = statement.executeQuery(querySeries1));
 	       	resultSets.add(resultSet = statement.executeQuery(querySeries2));
 	       	resultSets.add(resultSet = statement.executeQuery(querySeries3));
+// 	       	resultSets.add(resultSet = statement.executeQuery(queryDesc1));
+// 	       	resultSets.add(resultSet = statement.executeQuery(queryDesc2));
+// 	       	resultSets.add(resultSet = statement.executeQuery(queryDesc3));
+// 	       	resultSets.add(resultSet = statement.executeQuery(queryDesc));
+
+	       	
 			for(ResultSet resulttSet : resultSets){
 	        
 	        while(resultSet.next()){
@@ -136,6 +146,96 @@
 	        }   
 	        }%>
 	        
+	        
+	        <div class="container contenedor">
+			<font color="#fff" size="25px">Actores</font>
+			</div>
+			
+			<%
+			busqueda = busqueda.toUpperCase();
+	        String queryActores = "SELECT * FROM ACTORPRINCIPAL WHERE NOMBRE_ACTOR = '"+busqueda+"'";
+	        String queryActores1 = "SELECT * FROM ACTORPRINCIPAL WHERE NOMBRE_ACTOR LIKE '%"+busqueda+"'";	       
+	        String queryActores2 = "SELECT * FROM ACTORPRINCIPAL WHERE NOMBRE_ACTOR LIKE '"+busqueda+"%'";
+	        String queryActores3 = "SELECT * FROM ACTORPRINCIPAL WHERE NOMBRE_ACTOR LIKE '%"+busqueda+"%'";
+	        
+
+	        String nombre ="";
+	        String pais="";
+	        
+	        statement = connection.createStatement();
+	        
+	        resultSets= new ArrayList<ResultSet>();
+	       	resultSets.add(resultSet = statement.executeQuery(queryActores));
+	       	resultSets.add(resultSet = statement.executeQuery(queryActores1));
+	       	resultSets.add(resultSet = statement.executeQuery(queryActores2));
+	       	resultSets.add(resultSet = statement.executeQuery(queryActores3));
+
+	       	
+			for(ResultSet resulttSet : resultSets){
+	        
+	        while(resultSet.next()){
+	        	nombre = resultSet.getString("NOMBRE_ACTOR");
+	        	pais = resultSet.getString("PAIS_ACTOR");
+	        	%>
+	        	
+	        	<div class ="col-md-3">
+	        		<div class="card" style="width: 18rem;">
+			  			
+			  				<div class="card-body">
+			   					 <h5 class="card-title"><%=nombre%></h5>
+			    					<p class="card-text"><%=pais%></p>
+			    					
+			  				</div>
+					</div>
+	       		 </div>
+		       <%  
+	        }   
+	        }%>
+			
+			
+			 <div class="container contenedor">
+			<font color="#fff" size="25px">Directores</font>
+			</div>
+	        			<%
+			busqueda = busqueda.toUpperCase();
+	        String queryDirector = "SELECT * FROM DIRECTOR WHERE NOMBRE_DIRECTOR = '"+busqueda+"'";
+	        String queryDirector1 = "SELECT * FROM DIRECTOR WHERE NOMBRE_DIRECTOR LIKE '%"+busqueda+"'";	       
+	        String queryDirector2 = "SELECT * FROM DIRECTOR WHERE NOMBRE_DIRECTOR LIKE '"+busqueda+"%'";
+	        String queryDirector3 = "SELECT * FROM DIRECTOR WHERE NOMBRE_DIRECTOR LIKE '%"+busqueda+"%'";
+	        
+
+	         nombre ="";
+	         pais="";
+	        
+	        statement = connection.createStatement();
+	        
+	        resultSets= new ArrayList<ResultSet>();
+	       	resultSets.add(resultSet = statement.executeQuery(queryDirector));
+	       	resultSets.add(resultSet = statement.executeQuery(queryDirector1));
+	       	resultSets.add(resultSet = statement.executeQuery(queryDirector2));
+	       	resultSets.add(resultSet = statement.executeQuery(queryDirector3));
+
+	       	
+			for(ResultSet resulttSet : resultSets){
+	        
+	        while(resultSet.next()){
+	        	nombre = resultSet.getString("NOMBRE_DIRECTOR");
+	        	pais = resultSet.getString("PAIS_DIRECTOR");
+	        	%>
+	        	
+	        	<div class ="col-md-3">
+	        		<div class="card" style="width: 18rem;">
+			  			
+			  				<div class="card-body">
+			   					 <h5 class="card-title"><%=nombre%></h5>
+			    					<p class="card-text"><%=pais%></p>
+			    					
+			  				</div>
+					</div>
+	       		 </div>
+		       <%  
+	        }   
+	        }%>
 	        <h3></h3>
 </body>
 </html>

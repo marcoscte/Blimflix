@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mx.resources.java.Usuario;
+
 /**
  * Servlet implementation class BusquedaSimpleS
  */
@@ -23,6 +25,7 @@ public class BusquedaSimpleS extends HttpServlet {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
+	private Usuario usuario;
        
        
     /**
@@ -66,13 +69,14 @@ public class BusquedaSimpleS extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String busqueda = request.getParameter("busqueda");
-		String mail = request.getParameter("mail");
-		String nombre = request.getParameter("nombre");
+		usuario = new Usuario();
+		usuario = (Usuario) request.getAttribute("usuario");
+		
 		
 		HttpSession sessionok = request.getSession(true);
-		sessionok.setAttribute("nombre", nombre);
+
 		sessionok.setAttribute("busqueda", busqueda);
-		sessionok.setAttribute("mail", mail);
+
 		response.sendRedirect("BusquedaSimple.jsp");
 		
 		

@@ -5,19 +5,20 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="mx.resources.java.Usuario"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<% 
+		Usuario usuario = new Usuario();
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		HttpSession sessionOk = request.getSession(true);
-		String mail = (String) sessionOk.getAttribute("mail");
-		String nombre = (String) sessionOk.getAttribute("nombre");
+		usuario = (Usuario) sessionOk.getAttribute("usuario");
 		
 		
-		if(mail.equals(null)){
+		if(usuario.equals(null)){
 			response.sendRedirect("index.html");
 		}
 		String URL = "jdbc:postgresql://localhost:5432/proyectoBD";
@@ -71,6 +72,7 @@
 	                    </ul>
 	
 	                    <ul class="nav navbar-nav navbar-right">
+	                    <%String nombre = usuario.getNombre(); %>
 	                        <li><a class="fontnav "><font color="#f04a25"><%=nombre%></font></a></li>
 	                    </ul>
 	                </div>    
@@ -80,8 +82,9 @@
 	
 	            <font color="#fff" size=" 50px"> Buscar Serie </font>
 	            <form name="formulario_busqueda" action="BusquedaSimpleS" method="post">
-	            <input type="hidden" name="mail" value=<%=mail%>>
-	            <input type="hidden" name="nombre" value=<%=nombre%>>
+	            <%sessionOk.setAttribute("usuario", usuario); %>
+	            <input type="hidden" name="usuario" value=<%=usuario%>>
+	            
 		            <input type="text" id="busquedaPelicula" name="busqueda" class="form-control">
 		            <button class="btn " id="botonBuscar" type="submit">Buscar</button>
 		            <!-- Al hacer clic sobre el boton buscar tenía planeado que directamente te llevará si encuentra lo que hay a la pagina de seriedatos

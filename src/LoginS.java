@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mx.resources.java.Usuario;
+
 /**
  * Servlet implementation class LoginS
  */
@@ -19,6 +21,7 @@ public class LoginS extends HttpServlet {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
+	private Usuario usuario;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -62,13 +65,15 @@ public class LoginS extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
-		
+		usuario = new Usuario();
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");		
 		String queryUsuario = "SELECT * FROM USUARIO WHERE EMAIL_USUARIO = '"+email+"' AND CONTRASENIA_USUARIO = '"+password+"'";
 		String mail = "";
 		String pass = "";
 		String nombre = "";
+		String apellido ="";
+		
 		int type =0;
 		try {
 			statement = connection.createStatement();
@@ -78,20 +83,27 @@ public class LoginS extends HttpServlet {
 				pass = resultSet.getString("CONTRASENIA_USUARIO");
 				type = resultSet.getInt("TIPO_USUARIO");	
 				nombre = resultSet.getString("NOMBRE_USUARIO");
+				apellido = resultSet.getString("APELLIDO_USUARIO");
 			}
 			if(!mail.equals(email) && !pass.equals(password)) {
 				response.sendRedirect("LoginError.jsp");
 			}else if(mail.equals(email) && pass.equals(password) && type == 1){
+				
+				usuario.setContrasenia(pass);
+				usuario.setNombre(nombre);
+				usuario.setTipo(type);
+				usuario.setEmail(mail);
 				HttpSession sessionOk = request.getSession(true);
-				sessionOk.setAttribute("nombre", nombre);
-				sessionOk.setAttribute("tipo", type);
-				sessionOk.setAttribute("mail", mail);
+				sessionOk.setAttribute("usuario", usuario);
 				response.sendRedirect("IndexUsuario.jsp");
 			}else if(mail.equals(email) && pass.equals(password) && type == 2) {
+				usuario.setApellido(apellido);
+				usuario.setContrasenia(pass);
+				usuario.setNombre(nombre);
+				usuario.setTipo(type);
+				usuario.setEmail(mail);
 				HttpSession sessionOk = request.getSession(true);
-				sessionOk.setAttribute("nombre", nombre);
-				sessionOk.setAttribute("tipo", type);
-				sessionOk.setAttribute("mail", mail);
+				sessionOk.setAttribute("usuario", usuario);
 				response.sendRedirect("IndexAdmin.jsp");
 			}
 			
