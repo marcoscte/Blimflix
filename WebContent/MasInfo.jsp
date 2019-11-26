@@ -9,17 +9,23 @@
 <%@page import="mx.resources.java.Serie"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<% 
+		List<Serie> serieList = new ArrayList<>();
+		Serie serie = new Serie();
 		Usuario usuario = new Usuario();
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		HttpSession sessionOk = request.getSession(true);
+		int cve = (int)sessionOk.getAttribute("cve");
+		System.out.println("claveeee:  "+ cve);
+		serieList = (List) sessionOk.getAttribute("ListaSeries");
 		usuario = (Usuario) sessionOk.getAttribute("usuario");
-		
+		serie=(Serie) sessionOk.getAttribute("serie");
 		
 		if(usuario.equals(null)){
 			response.sendRedirect("index.html");
@@ -33,10 +39,10 @@
 			statement = connection.createStatement();
 			String query = "SELECT * FROM USUARIO";
 			resultSet = statement.executeQuery(query);
-			System.out.println("Se conecto IndexUsuario");
+			System.out.println("Se conecto MasInfo");
 			}catch(Exception e){
 				e.printStackTrace();
-				System.out.println("No se conecto IndexUsuario");
+				System.out.println("No se conecto MasInfo");
 			
 		}
 		
@@ -81,64 +87,47 @@
 	                </div>    
 	            </div>             
 	        </nav>
-	        <div class="container contenedor">
-	
-	            <font color="#fff" size=" 50px"> Buscar Serie </font>
-	            <form name="formulario_busqueda" action="BusquedaSimpleS" method="post">
-	            <%sessionOk.setAttribute("usuario", usuario); %>
-	            <input type="hidden" name="usuario" value=<%=usuario%>>
-	            
-		            <input type="text" id="busquedaPelicula" name="busqueda" class="form-control">
-		            <button class="btn " id="botonBuscar" type="submit">Buscar</button>
-		            <!-- Al hacer clic sobre el boton buscar tenía planeado que directamente te llevará si encuentra lo que hay a la pagina de seriedatos
-		                y sino pues mande un mensaje para que así lo hagas bro -->
-	            </form>
-	        </div>
 	        
-	         <%
-	        String querySeries = "SELECT * FROM SERIE";
-	        String titulo ="";
-	        String portada="";
-	        String desc="";
-	        int cve = 0;
-	        statement = connection.createStatement();
-	        resultSet = statement.executeQuery(querySeries);
-	        List <Serie> serieList = new ArrayList<>();
-	        while(resultSet.next()){
-	        	cve = resultSet.getInt("CVE_SERIE");
-	        	titulo = resultSet.getString("TITULO_SERIE");
-	        	portada = resultSet.getString("PORTADA_SERIE");
-	        	desc= resultSet.getString("SINOPSIS_SERIE");
-	        	%>
+	        
+	        <%
+// 	        int cve = serie.getId();
+// 	        String titulo = serie.getTitulo();
+// 	        System.out.println(titulo + cve);
+	        
+// 	        String queryInfo = "Select SERIE.TITULO_SERIE,SERIE.ANIO_SERIE,SERIE.TEMPORADAS,"
+// 				        		+"SERIE.PAIS_SERIE,SERIE.PORTADA_SERIE,SERIE.SINOPSIS_SERIE,"
+// 				        		+"ACTORPRINCIPAL.NOMBRE_ACTOR, GENERO.DESCRIPCION_GENERO," 
+// 				        		+"DIRECTOR.NOMBRE_DIRECTOR from SERIE "
+// 				        		+"INNER JOIN GENERO ON GENERO.CVE_GENERO = SERIE.CVE_GENERO "
+// 				        		+"INNER JOIN DIRECTOR ON DIRECTOR.CVE_DIRECTOR = SERIE.CVE_DIRECTOR "
+// 				        		+"INNER JOIN ACTORPRINCIPAL ON ACTORPRINCIPAL.CVE_ACTOR = SERIE.CVE_ACTOR "
+// 				        		+"WHERE SERIE.CVE_SERIE ="+cve
+// 				        		+" AND SERIE.TITULO_SERIE='"+titulo+"'";
+// 			statement = connection.createStatement();	        		
+// 	        resultSet = statement.executeQuery(queryInfo);
+// 	        while(resultSet.next()){
 	        	
-	        	<div class ="col-md-3">
-	        		<div class="card" style="width: 18rem;">
-	        			<form name="formmasinfo" action="MasInfoS" method="POST">
-			  			<img src=<%=portada%> class="card-img-top" height ="200" width ="250">
-			  				<div class="card-body">
-			   					 <h5 class="card-title"><%=titulo%></h5>
-			    					<p class="card-text"><%=desc%></p>
-			    					<%Serie serie = new Serie(cve, titulo);
-			    					serieList.add(serie);
-			    					sessionOk.setAttribute("serie", serie);
-			    					
-			    					%>
-			    					<input type="text" name="cve12" value=<%=cve%>>
-			    					<a href="MasInfo.jsp" class="btn btn-primary">Más información</a>
-			    					<input type="submit" class="btn btn-primary">
-			    					
-			    					
-			  				</div>
-			  				</form>
-					</div>
-	       		 </div>
-		       <%  } 
-	        	
-		       sessionOk.setAttribute("ListaSeries", serieList);
-		       
-		       %>
+// 	        }
+	        %>
+	        <div class="card" style="width: 18rem;">
+			  <img src="..." class="card-img-top" alt="...">
+			  <div class="card-body">
+			    <h5 class="card-title">Card title</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			  </div>
+			  <ul class="list-group list-group-flush">
+			    <li class="list-group-item">Cras justo odio</li>
+			    <li class="list-group-item">Dapibus ac facilisis in</li>
+			    <li class="list-group-item">Vestibulum at eros</li>
+			  </ul>
+			  <div class="card-body">
+			    <a href="#" class="card-link">Card link</a>
+			    <a href="#" class="card-link">Another link</a>
+			  </div>
+			</div>
 	        
 	        
 	        
-		</body>
+	        
+	</body>
 </html>
