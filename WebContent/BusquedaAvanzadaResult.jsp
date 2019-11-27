@@ -15,7 +15,7 @@
 	<head>
 		<% 
 		
-		
+		Serie serie = new Serie();
 		Usuario usuario = new Usuario();
 		Connection connection = null;
 		Statement statement = null;
@@ -25,8 +25,7 @@
 		
 		
 		usuario = (Usuario) sessionOk.getAttribute("usuario");
-		
-		
+		serie = (Serie) sessionOk.getAttribute("serie");
 		if(usuario == null){
 			response.sendRedirect("index.html");
 		}
@@ -39,10 +38,10 @@
 			statement = connection.createStatement();
 			String query = "SELECT * FROM USUARIO";
 			rs = statement.executeQuery(query);
-			System.out.println("Se conecto MasInfo");
+			System.out.println("Se conecto BusquedaAvanzadar");
 			}catch(Exception e){
 				e.printStackTrace();
-				System.out.println("No se conecto MasInfo");
+				System.out.println("No se conecto BusquedaAvanzadar");
 			
 		}
 		
@@ -81,8 +80,8 @@
 	                    </ul>
 	
 	                    <ul class="nav navbar-nav navbar-right">
-	                    <%String nombre = usuario.getNombre(); %>
-	                        <li><a class="fontnav "><font color="#f04a25"><%=nombre%></font></a></li>
+	                   
+	                         <li><a class="fontnav " href="#"><font color="#f04a25"><%=usuario.getNombre() %></font></a></li>
 	                    </ul>
 	                </div>    
 	            </div>             
@@ -111,6 +110,8 @@
 				        		+"WHERE SERIE.CVE_SERIE ="+cve;
 			statement = connection.createStatement();	        		
 	        rs = statement.executeQuery(queryInfo);
+	        
+	        
 	        while(rs.next()){
 	        	titulo = rs.getString("TITULO_SERIE");
 	        	anio = rs.getInt("ANIO_SERIE");

@@ -6,6 +6,11 @@ public class Serie {
 	private int anio;
 	private String pais;
 	private String desc;
+	private String actor;
+	private String director;
+	private int temporadas;
+
+	
 	
 	public Serie(int id, String titulo) {
 		this.id = id;
@@ -43,12 +48,30 @@ public class Serie {
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}		
+	public String getActor() {
+		return actor;
 	}
-	
+	public void setActor(String actor) {
+		this.actor = actor;
+	}
+	public String getDirector() {
+		return director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public int getTemporadas() {
+		return temporadas;
+	}
+	public void setTemporadas(int temporadas) {
+		this.temporadas = temporadas;
+	}
 	@Override
 	public String toString() {
-		return "Serie: "+ titulo+" id: "+id;
+		return "Serie [titulo=" + titulo + ", pais=" + pais + ", actor=" + actor + ", director=" + director
+				+ ", temporadas=" + temporadas + "]";
 	}
-	
+
 	
 }

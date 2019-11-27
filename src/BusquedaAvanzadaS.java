@@ -1,8 +1,5 @@
 
 
-
-
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,22 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import mx.resources.java.Serie;
 import mx.resources.java.Usuario;
 
 /**
- * Servlet implementation class MasInfoS
+ * Servlet implementation class BusquedaAvanzadaS
  */
-@WebServlet("/MasInfoS")
-public class MasInfoS extends HttpServlet {
+@WebServlet("/BusquedaAvanzadaS")
+public class BusquedaAvanzadaS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Connection connection;
-	private Statement statement;
-	private ResultSet resultSet;
-	private Usuario usuario;   
+	private Usuario usuario;
+	private Serie serie;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MasInfoS() {
+    public BusquedaAvanzadaS() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,18 +44,23 @@ public class MasInfoS extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
-		String cveS =  request.getParameter("cve12");
-		System.out.println(cveS);
-		int cve = Integer.parseInt(cveS);
-		
+		serie = new Serie();
+		usuario = new Usuario();
 		HttpSession sessionOk = request.getSession(true);
 		usuario = (Usuario) sessionOk.getAttribute("usuario");
-		sessionOk.setAttribute("cve", cve);
+		System.out.println(usuario);
+		serie.setTitulo(request.getParameter("titulo"));
+		serie.setActor(request.getParameter("actor"));
+		serie.setDirector(request.getParameter("director"));
+		String temporadas = request.getParameter("temporadas");
+		serie.setTemporadas(Integer.parseInt(temporadas));
+		serie.setPais(request.getParameter("pais"));
 		sessionOk.setAttribute("usuario", usuario);
-		response.sendRedirect("MasInfo.jsp");
+		sessionOk.setAttribute("serie", serie);
+		int cve = 2;
+		sessionOk.setAttribute("cve", cve);
+		
+		response.sendRedirect("BusquedaAvanzadaResult.jsp");
 		doGet(request, response);
 	}
 

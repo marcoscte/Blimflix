@@ -20,10 +20,11 @@
 		ResultSet resultSet = null;
 		HttpSession sessionOk = request.getSession(true);
 		usuario = (Usuario) sessionOk.getAttribute("usuario");
+		
  		if(usuario.equals(null)){
  			response.sendRedirect("index.html");
  		}
- 		
+ 		sessionOk.setAttribute("usuario", usuario);
 		String URL = "jdbc:postgresql://localhost:5432/proyectoBD";
 		String password = "root123";
 		String username = "root";
@@ -33,10 +34,10 @@
 			statement = connection.createStatement();
 			String query = "SELECT * FROM USUARIO";
 			resultSet = statement.executeQuery(query);
-			System.out.println("Se conecto BusquedaSimple");
+			System.out.println("Se conecto BusquedaAvanzada");
 			}catch(Exception e){
 				e.printStackTrace();
-				System.out.println("No se conecto BusquedaSimple");
+				System.out.println("No se conecto BusquedaAvanzada");
 			
 		}
 		
@@ -50,7 +51,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/busquedaavanzada.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <title>topSeries</title>
+        <title>Busqueda Avanzada</title>
     </head>
     <body background="img/fondoindex.jpg">
         <nav class="navbar navbar-default navbar-static-top">
@@ -63,16 +64,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://localhost/Proyecto1/index.html"><font color="#f04a25" size="30px">BlimFix</font></a>
+                    <a class="navbar-brand" href="IndexUsuario.jsp"><font color="#f04a25" size="30px">BlimFix</font></a>
                 </div>                
                 <div id="navbar" class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
 
-                        <li><a href="http://localhost/Proyecto1/index.html"><font color="#f04a25">Inicio</font></a></li>
+                        <li><a href="IndexUsuario.jsp"><font color="#f04a25">Inicio</font></a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="fontnav " href=""><font color="#f04a25">Mi info</font></a></li>
+                        <li><a class="fontnav " href="#"><font color="#f04a25"><%=usuario.getNombre() %></font></a></li>
                     </ul>
                 </div>    
             </div>             
@@ -86,22 +87,22 @@
 
             <div class="row">
                 <div class="col-md-8 ">
-                    <form>
+                    <form name="busquedaAvanzada" method="POST" action="BusquedaAvanzadaS">
                         <div class="form-group">
                             <label for="nomSerie" class="lbl1">Nombre de Serie</label>
-                            <input type="text" class="form-control" id="nomSerie">
+                            <input type="text" class="form-control" id="nomSerie" name="titulo">
                         </div>
                         <div class="form-group">
                             <label for="nomAutor" class="lbl1">Actor Principal</label>
-                            <input type="text" class="form-control" id="nomAutor">
+                            <input type="text" class="form-control" id="nomAutor" name="actor">
                         </div>
                         <div class="form-group">
                             <label for="nomDirector" class="lbl1">Director</label>
-                            <input type="text" class="form-control" id="nomDirector">
+                            <input type="text" class="form-control" id="nomDirector" name="director">
                         </div>
                         <div class="form-group">
                             <label for="numTemporadas" class="lbl1">Temporadas</label>
-                            <select class="form-control" id="numTemporadas">
+                            <select class="form-control" id="numTemporadas" name="temporadas">
                             <%int tmps = 0;
                             		String queryTemps = "SELECT MAX(TEMPORADAS) AS TEMPORADAS FROM SERIE";
                             		resultSet = statement.executeQuery(queryTemps);
@@ -111,14 +112,14 @@
                             		
                             		for(int i=1; i<= tmps; i++){
                             		%>
-                                <option><%=i%></option>
+                                <option name="temporadas"><%=i%></option>
 <%} %>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect1" class="lbl1">Pais de origen</label>
-                            <select class="form-control" id="paisOrigen">
+                            <select class="form-control" name="pais" id="paisOrigen">
                             <% 
                             String queryPais = "SELECT DISTINCT PAIS_SERIE FROM SERIE";
                             		String pais ="";
@@ -126,13 +127,14 @@
                             		while(resultSet.next()){
                             			pais = resultSet.getString("PAIS_SERIE");
                             			%>
-                            			<option><%=pais%></option>
+                            			<option name="pais"><%=pais%></option>
                             		<%}%>
-                            
+                             <%sessionOk.setAttribute("usuario", usuario); %>
                                 
                             </select>
                         </div>
-                     <button class="btn " id="botonBuscarAvanzado">Buscar</button>
+                       
+                     <button type="submit" class="btn btn-primary" id="botonBuscarAvanzado">Buscar</button>
                         
                     </form>
                 </div>
@@ -149,7 +151,7 @@
 
                         </a>
                     </div>
-                    <textarea name="textarea" rows="200" cols="60" readonly id="textAreaBusquedaAvanzada" ></textarea>
+                    <!--  <textarea name="textarea" rows="200" cols="60" readonly id="textAreaBusquedaAvanzada" ></textarea>-->
                 </div>
 
             </div>

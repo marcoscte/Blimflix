@@ -112,7 +112,7 @@
 	        	%>
 	        	
 	        	<div class ="col-md-3">
-	        		<div class="card" style="width: 18rem;">
+	        		<div class="card" style="width: 19rem;">
 	        			<form name="formmasinfo" action="MasInfoS" method="POST">
 			  			<img src=<%=portada%> class="card-img-top" height ="200" width ="250">
 			  				<div class="card-body">
@@ -123,9 +123,9 @@
 			    					sessionOk.setAttribute("serie", serie);
 			    					
 			    					%>
-			    					<input type="text" name="cve12" value=<%=cve%>>
-			    					<a href="MasInfo.jsp" class="btn btn-primary">Más información</a>
-			    					<input type="submit" class="btn btn-primary">
+			    					<input type="hidden" name="cve12" value=<%=cve%>>
+			    					
+			    					<input type="submit" class="btn btn-primary" value="Mas Informacion">
 			    					
 			    					
 			  				</div>
@@ -134,7 +134,7 @@
 	       		 </div>
 		       <%  } 
 	        	
-		       sessionOk.setAttribute("ListaSeries", serieList);
+		       sessionOk.setAttribute("usuario", usuario);
 		       
 		       %>
 	        

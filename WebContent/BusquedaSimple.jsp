@@ -124,23 +124,34 @@
 // 	       	resultSets.add(resultSet = statement.executeQuery(queryDesc3));
 // 	       	resultSets.add(resultSet = statement.executeQuery(queryDesc));
 
-	       	
+	       	int cve_serie =0;
 			for(ResultSet resulttSet : resultSets){
 	        
 	        while(resultSet.next()){
 	        	titulo = resultSet.getString("TITULO_SERIE");
 	        	portada = resultSet.getString("PORTADA_SERIE");
 	        	desc= resultSet.getString("SINOPSIS_SERIE");
+	        	cve_serie = resultSet.getInt("CVE_SERIE");
 	        	%>
 	        	
 	        	<div class ="col-md-3">
-	        		<div class="card" style="width: 18rem;">
-			  			<img src=<%=portada%> class="card-img-top" height ="200" width ="250">
+	        		<div class="card" style="width: 19rem;">
+	        			<form name="formmasinfo" action="MasInfoS" method="POST">
+			  			<img src=<%=portada%> class="card-img-top" >
 			  				<div class="card-body">
 			   					 <h5 class="card-title"><%=titulo%></h5>
 			    					<p class="card-text"><%=desc%></p>
-			    					<a href="#" class="btn btn-primary">Más información</a>
+			    					
+			  
+			    					
+			    					
+			    					<input type="hidden" name="cve12" value=<%=cve_serie%>>
+			    					
+			    					<input type="submit" class="btn btn-primary" value="Mas Informacion">
+			    					
+			    					
 			  				</div>
+			  				</form>
 					</div>
 	       		 </div>
 		       <%  
@@ -171,16 +182,17 @@
 	       	resultSets.add(resultSet = statement.executeQuery(queryActores2));
 	       	resultSets.add(resultSet = statement.executeQuery(queryActores3));
 
-	       	
+	       	int cve = 0;
 			for(ResultSet resulttSet : resultSets){
 	        
 	        while(resultSet.next()){
 	        	nombre = resultSet.getString("NOMBRE_ACTOR");
 	        	pais = resultSet.getString("PAIS_ACTOR");
+	        	
 	        	%>
 	        	
 	        	<div class ="col-md-3">
-	        		<div class="card" style="width: 18rem;">
+	        		<div class="card" style="width: 19rem;">
 			  			
 			  				<div class="card-body">
 			   					 <h5 class="card-title"><%=nombre%></h5>
@@ -225,7 +237,7 @@
 	        	%>
 	        	
 	        	<div class ="col-md-3">
-	        		<div class="card" style="width: 18rem;">
+	        		<div class="card" style="width: 19rem;">
 			  			
 			  				<div class="card-body">
 			   					 <h5 class="card-title"><%=nombre%></h5>
