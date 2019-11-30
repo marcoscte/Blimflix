@@ -69,12 +69,19 @@ public class BusquedaSimpleS extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String busqueda = request.getParameter("busqueda");
-		usuario = new Usuario();
-		usuario = (Usuario) request.getAttribute("usuario");
-		
-		
-		HttpSession sessionok = request.getSession(true);
 
+		
+		usuario = new Usuario();
+
+		HttpSession sessionok = request.getSession(true);
+		usuario = (Usuario) sessionok.getAttribute("usuario");
+		
+		String queryHistorial = "INSERT INTO HISTORIAL_USUARIO(CVE_USUARIO, HISTORIAL) VALUES ("+usuario.getId()+", '"+busqueda+"')";
+		try{
+			resultSet = statement.executeQuery(queryHistorial);
+		}catch(Exception e){
+				System.out.println(":)");
+			}
 		sessionok.setAttribute("busqueda", busqueda);
 
 		response.sendRedirect("BusquedaSimple.jsp");

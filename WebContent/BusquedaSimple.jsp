@@ -72,9 +72,10 @@
 	                </div>                
 	                <div id="navbar" class="navbar-collapse collapse ">
 	                    <ul class="nav navbar-nav">
-	                        <li><a class="fontnav" href="http://localhost/Proyecto1/topSeries.html"><font color="#f04a25">Top Series</font></a></li>
+	                        <li><a class="fontnav" href="TopSeries.jsp"><font color="#f04a25">Top 10 Series</font></a></li>
 	                        <li><a class="fontnav" href="BusquedaAvanzada.jsp"><font color="#f04a25">Busqueda avanzada</font></a></li>
-	                        <li><a class="fontnav "><font color="#f04a25"><% usuario.getNombre();%></font></a></li>
+	                        <li><a class="fontnav" href="Historial.jsp"><font color="#f04a25">Historial</font></a></li>
+	                       <li><a class="fontnav" href="index.html"><font color="#f04a25">Salir</font></a></li>
 	                    </ul>
 	
 	                    <ul class="nav navbar-nav navbar-right">

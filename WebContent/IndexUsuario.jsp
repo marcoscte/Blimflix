@@ -31,9 +31,14 @@
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection(URL, username, password);
 			statement = connection.createStatement();
-			String query = "SELECT * FROM USUARIO";
+			//System.out.println(usuario.getEmail());
+			//String query = "SELECT * FROM USUARIO";
+			String query = "SELECT CVE_USUARIO FROM USUARIO WHERE EMAIL_USUARIO = '"+usuario.getEmail()+"'";
 			resultSet = statement.executeQuery(query);
-			System.out.println("Se conecto IndexUsuario");
+			while(resultSet.next()){
+				usuario.setId(resultSet.getInt("CVE_USUARIO"));
+			}
+			System.out.println("Se conecto IndexUsuario: "+ usuario.getId());
 			}catch(Exception e){
 				e.printStackTrace();
 				System.out.println("No se conecto IndexUsuario");
@@ -70,8 +75,10 @@
 	                </div>                
 	                <div id="navbar" class="navbar-collapse collapse ">
 	                    <ul class="nav navbar-nav">
-	                        <li><a class="fontnav" href="http://localhost/Proyecto1/topSeries.html"><font color="#f04a25">Top Series</font></a></li>
+	                        <li><a class="fontnav" href="TopSeries.jsp"><font color="#f04a25">Top 10 Series</font></a></li>
 	                        <li><a class="fontnav" href="BusquedaAvanzada.jsp"><font color="#f04a25">Busqueda avanzada</font></a></li>
+	                        <li><a class="fontnav" href="Historial.jsp"><font color="#f04a25">Historial</font></a></li>
+	                        <li><a class="fontnav" href="index.html"><font color="#f04a25">Salir</font></a></li>
 	                    </ul>
 	
 	                    <ul class="nav navbar-nav navbar-right">
